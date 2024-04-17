@@ -1,0 +1,147 @@
+% !Rnw weave = knitr
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Preambuła TeX-a. Można dodać brakujące pakiety w razie potrzeby
+\documentclass[12pt, a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[colorlinks=true, linkcolor=blue]{hyperref}
+\usepackage{amsmath, amsthm, amssymb, amscd}
+\usepackage{enumerate}
+\usepackage{polski}
+\newtheorem{thm}{Twierdzenie}
+\newtheorem{lem}{Lemat}
+\newtheorem{cor}{Wniosek}
+\newtheorem{prop}{Propozycja}
+\newtheorem{rem}{Uwaga}
+\newtheorem{note}{Notka}
+\newtheorem{fact}{Fakt}
+\newtheorem{defn}{Definicja}
+\counterwithin{equation}{section}
+\def \E {\mathbb{E}}
+\def \P {\mathbb{P}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%NIE ZMIENIAĆ!
+\usepackage[top=2.5cm, bottom=2.5cm, left=2cm, right=2cm]{geometry}
+\makeatletter
+\newcommand\numerraportu[1]{\renewcommand\@title{Raport #1}}
+\renewcommand{\maketitle}{
+    \begin{center}
+        \vspace{5pt}
+        \textbf{\Huge \sffamily Metody Monte Carlo}\\
+        \vspace{15pt}
+        \textbf{\Large \sffamily \@title}\\
+        \vspace{10pt}
+        {\Large \sffamily Autor: \@author}\\
+        \vspace{10pt}
+        {\large\sffamily \@date}\\
+        \hrulefill\\
+        \vspace{20pt}
+    \end{center}
+}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\@author}
+\setlength{\headsep}{10pt}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Dane raportu - wypełniają studenci
+
+\author{Imię i nazwisko}
+\date{Dzisiejsza data}
+\numerraportu{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%Poniżej chunk z kodem. Ponieważ tu są ustawienia globalne, np. pobierane biblioteki, nie chcemy by kod był wyświetlany w pliku PDF, więc wybieramy opcję echo=FALSE. Dla opcji echo=TRUE chunk z kodem będzie wyświetlany w pliku PDF. Jest też opcja eval, jeżeli ma wartość TRUE (domyślna), to kod z chunka będzie wykonywany a wynik zostanie zapisany w sesji R. Jeżeli ma wartość False, to kod z chunka nie będzie wykonywany a jedynie sprawdzany pod kątem poprawności.
+<<ustawienia_globalne, echo=FALSE>>=
+library(knitr)
+library(xtable) #pakiet do tworzenia tabel w formacie LaTeX'a
+knitr::opts_chunk$set(fig.align='center', fig.pos='H')
+@
+%Przed pierwszą kompilacją oba pakiety knitr i xtable muszą być zainstalowane przy pomocy komendy install.packages('nazwa pakietu') wywołanej w konsoli.
+
+%Strona tytułowa i spis treści
+\maketitle
+
+\tableofcontents
+\thispagestyle{plain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Problem 1 -- Generator kongruencyjny}
+\begin{itemize}
+\item Zaimplementuj liniowy generator kongruencyjny liczb pseudolosowych $x_1, x_2,\ldots$:
+$$(s_0=1)\quad s_n=as_{n-1}\; {\rm mod} \; m;\quad x_n=s_n/m,\quad n=1,2,\ldots, \mbox{gdzie}$$
+\begin{enumerate}
+\item[i] $m=37$, $a=19$,
+\item[ii] $m=2^{31}-1$, $a=39373$.
+\end{enumerate} 
+\item Sprawdź empirycznie, jaki okres ma pierwszy z tych generatorów.
+\item Narysuj $50$ kolejnych liczb pseudolosowych j.w. jako punkty na odcinku jednostkowym. Narysuj histogram. Skomentuj rysunek.
+\item Narysuj $50$ kolejnych par liczb pseudolosowych j.w. jako punkty na kwadracie jednostkowym. Skomentuj rysunek.
+\end{itemize}
+
+\medskip
+
+\noindent{\large\bf \sffamily Rozwiązanie:}
+\vspace{15pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Rozwiązanie
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Problem 2 -- Generator standardowy w R}
+
+\begin{itemize}
+\item Narysuj $50$ kolejnych par liczb pseudolosowych jako punkty na kwadracie jednostkowym dla standardowego generatora zaimplementowanego w pakiecie R. 
+\item Czy otrzymane pary liczb pseudolosowych mają rozkład jednostajny na kwadracie $[0,1]^2$? Zaproponuj, jak to weryfikować. W jaki sposób ta własność łączy się z własnością niezależności kolejnych liczb?
+\item Jak inicjować obliczenia, żeby za każdym razem otrzymywać ten sam ciąg $50$-ciu par? Czy taka powtarzalność (replikowalność) jest sprzeczna z ideą symulacji pseudolosowych?
+ \end{itemize}
+
+\medskip
+
+\noindent{\large\bf \sffamily Rozwiązanie:}
+\vspace{15pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Rozwiązanie
+
+\newpage
+\section{Problem 3 -- Symulacja dyskretnych zmiennych losowych}
+
+\begin{itemize}
+\item Napisz generator liczb losowych o rozkładzie dwupunktowym: $\mathbb P(X=1)=p$, $\mathbb P(X=0)=1-p$, gdzie $p\in [0,1]$.
+
+\item Napisz generator liczb losowych dla rozkładu dwumianowego. Narysuj histogram dla próby (prostej) z tego rozkładu.
+
+\item Napisz generator dla rozkładu Poissona. Wykonaj odręcznie obliczenia przygotowawcze. 
+Działanie generatora sprawdź poprzez analizę histogramów lub w inny sposób.
+\end{itemize}
+
+\medskip
+
+\noindent{\large\bf \sffamily Rozwiązanie:}
+\vspace{15pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Rozwiązanie
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
